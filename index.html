@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jukebox</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <h1>Jukebox</h1>
+
+    <section id="playlist-form">
+        <h2>Create Playlist</h2>
+        <form id="createPlaylistForm">
+            <input type="text" id="playlist-name" placeholder="Playlist Name" required />
+            <input type="text" id="playlist-genre" placeholder="Genre" required />
+            <input type="text" id="playlist-artist" placeholder="Artist" required />
+            <button type="submit">Create</button>
+        </form>
+    </section>
+
+    <section id="playlists">
+        <h2>Your Playlists</h2>
+        <div id="playlist-list"></div>
+    </section>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
