@@ -3,8 +3,8 @@ import MusicModel from './models/MusicModel.js';
 import PlaylistView from './views/PlaylistView.js';
 
 const app = new PlaylistController(
-  new PlaylistView(),
-  new MusicModel()
+    new PlaylistView(),
+    new MusicModel()
 );
 
 app.init();
