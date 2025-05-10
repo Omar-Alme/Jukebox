@@ -30,4 +30,20 @@ export default class MusicModel {
 
         return await res.json();
     }
+
+    async deletePlaylist(id) {
+        const res = await fetch(`${DB_URL}/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "x-apikey": API_KEY
+            }
+        });
+
+        if (!res.ok) {
+            throw new Error("Failed to delete playlist");
+        }
+
+        return true;
+    }
 }

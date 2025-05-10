@@ -22,10 +22,25 @@ export default class PlaylistView {
 
     renderPlaylists(playlists) {
         this.listContainer.innerHTML = '';
+
         playlists.forEach(p => {
             const div = document.createElement('div');
-            div.innerHTML = `<strong>${p.name}</strong> - ${p.genre} - ${p.artist}`;
+            div.innerHTML = `<strong>${p.name}</strong> - ${p.genre} - ${p.artist}
+                    <button data-id="${p._id}" class="delete-btn">🗑️ Delete</button>
+`;
             this.listContainer.appendChild(div);
         });
+
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+                this.onDelete(id);
+            });
+        });
     }
+
+    bindDeletePlaylist(callback) {
+  this.onDelete = callback;
 }
+}
+
