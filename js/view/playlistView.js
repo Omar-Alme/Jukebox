@@ -39,6 +39,18 @@ export default class PlaylistView {
                             <button type="submit">Add Song</button>
                         </form>
                         </div>
+
+                        <ul>
+                            ${(p.songs && p.songs.length > 0)
+                                ? p.songs.map((song, index) => `
+                                <li>
+                                    ${song.title} (${song.duration})
+                                    <button class="delete-song-btn" data-playlist-id="${p._id}" data-song-index="${index}">🗑️</button>
+                                </li>
+                                `).join('')
+                                : '<li>No songs yet.</li>'
+                            }
+                        </ul>
                     </div>
 `;
             this.listContainer.appendChild(div);
@@ -67,6 +79,15 @@ export default class PlaylistView {
                 }
             });
         });
+
+        document.querySelectorAll('.delete-song-btn').forEach(button => {
+            const playlistId = button.getAttribute('data-playlist-id');
+            const songIndex = button.getAttribute('data-song-index');
+
+            button.addEventListener('click', () => {
+                this.onDeleteSong(playlistId, parseInt(songIndex));
+            });
+        });
     }
 
     bindDeletePlaylist(callback) {
@@ -74,5 +95,9 @@ export default class PlaylistView {
     }
     bindAddSong(callback) {
         this.onAddSong = callback;
+    }
+
+    bindDeleteSong(callback) {
+        this.onDeleteSong = callback;
     }
 }

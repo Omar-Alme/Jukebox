@@ -73,4 +73,31 @@ export default class MusicModel {
 
         return await patchRes.json();
     }
+
+    async deleteSongFromPlaylist(playlistId, songIndex) {
+        const res = await fetch(`${DB_URL}/${playlistId}`, {
+            headers: {
+                "x-apikey": API_KEY
+            }
+        });
+        const playlist = await res.json();
+
+        const updatedSongs = playlist.songs || [];
+        updatedSongs.splice(songIndex, 1);
+
+        // Update playlist
+        const updateRes = await fetch(`${DB_URL}/${playlistId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "x-apikey": API_KEY
+            },
+            body: JSON.stringify({
+                songs: updatedSongs
+            })
+        });
+
+        return await updateRes.json();
+    }
+
 }
