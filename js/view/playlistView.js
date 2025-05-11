@@ -25,7 +25,25 @@ export default class PlaylistView {
 
         playlists.forEach(p => {
             const div = document.createElement('div');
-            div.innerHTML = `<div class="playlist">
+            div.innerHTML = `
+            <section id="playlist-controls">
+                <label>
+                    Filter by genre:
+                    <select id="genreFilter">
+                    <option value="">All</option>
+                    </select>
+                </label>
+
+                <label>
+                    Sort by:
+                    <select id="sortBy">
+                    <option value="name">Name</option>
+                    <option value="artist">Artist</option>
+                    </select>
+                </label>
+            </section>
+
+            <div class="playlist">
                 <strong>${p.name}</strong> - ${p.genre} - ${p.artist}
                 <button data-id="${p._id}" class="delete-btn">🗑️ Delete</button>
                 <button data-id="${p._id}" class="edit-btn">✏️ Edit</button>

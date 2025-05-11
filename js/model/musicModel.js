@@ -101,16 +101,16 @@ export default class MusicModel {
     }
 
     async updatePlaylist(id, updatedData) {
-  const res = await fetch(`${DB_URL}/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      "x-apikey": API_KEY
-    },
-    body: JSON.stringify(updatedData)
-  });
+        const res = await fetch(`${DB_URL}/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "x-apikey": API_KEY
+            },
+            body: JSON.stringify(updatedData)
+        });
 
-  return await res.json();
-}
+        return await res.json();
+    }
 
 }
