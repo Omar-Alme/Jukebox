@@ -28,45 +28,14 @@ export default class PlaylistView {
             const div = document.createElement('div');
             div.innerHTML = `
             <div class="playlist">
-                <strong>${p.name}</strong> - ${p.genre}
-                <button data-id="${p._id}" class="delete-btn">🗑️ Delete</button>
-                <button data-id="${p._id}" class="edit-btn">✏️ Edit</button>
-
-                <form data-id="${p._id}" class="edit-playlist-form" style="display: none; margin-top: 10px;">
-                    <input type="text" name="name" placeholder="New name" value="${p.name}" required />
-                    <input type="text" name="genre" placeholder="New genre" value="${p.genre}" required />
-                    <button type="submit">Save</button>
-                </form>
-
-                <div class="songs">
-                    <h3>Songs</h3>
-                    <ul>
-                        ${(p.songs && p.songs.length > 0)
-                            ? p.songs.map((song, index) => `
-                                <li>
-                                    ${song.title} - <em>${song.artist}</em> (${song.duration})
-                                    ${song.spotifyUrl ? `<a href="${song.spotifyUrl}" target="_blank" title="Listen on Spotify">🎧</a>` : ''}
-
-                                    <button class="delete-song-btn" data-playlist-id="${p._id}" data-song-index="${index}">🗑️</button>
-                                </li>
-                            `).join('')
-                            : '<li>No songs yet.</li>'
-                        }
-                    </ul>
-
-                      <button class="toggle-add-song-btn" data-id="${p._id}">➕ Add Song</button>
-
-
-                    <form data-id="${p._id}" class="add-song-form" style="display: none; margin-top: 10px;">
-                        <input type="text" name="title" placeholder="Song title" required />
-                        <input type="text" name="artist" placeholder="Artist" required />
-                        <input type="text" name="duration" placeholder="Duration" required />
-                        <input type="url" name="spotifyUrl" placeholder="Spotify URL" />
-                        <button type="submit">Add Song</button>
-                    </form>
-                </div>
+                <strong>${p.name}</strong>
+                <p style="margin: 0.3rem 0 0.5rem;">Genre: <em>${p.genre}</em></p>
+                <a href="playlist.html?id=${p._id}">
+                <button class="view-btn">👁️ View</button>
+                </a>
             </div>
 `;
+
             this.listContainer.appendChild(div);
         });
 

@@ -131,6 +131,15 @@ a[title="Listen on Spotify"] {
     font-size: 1.1rem;
 }
 
+.view-btn {
+    background-color: #00b894;
+}
+
+.view-btn:hover {
+    background-color: #019875;
+}
+
+
 /* Animations */
 @keyframes fadeIn {
     from {
