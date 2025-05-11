@@ -91,14 +91,14 @@ section#playlist-controls label {
 }
 
 a[title="Listen on Spotify"] {
-  margin-left: 0.5rem;
-  font-size: 1.1rem;
-  text-decoration: none;
-  color: #1DB954;
+    margin-left: 0.5rem;
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: #1DB954;
 }
 
 a[title="Listen on Spotify"]:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 
