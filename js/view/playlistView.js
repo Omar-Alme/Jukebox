@@ -78,13 +78,13 @@ export default class PlaylistView {
 
         // Populate artist filter
         const artists = [...new Set(playlists.map(p => p.artist))];
-this.artistFilter.innerHTML = '<option value="">All</option>';
-artists.forEach(a => {
-  const option = document.createElement('option');
-  option.value = a;
-  option.textContent = a;
-  this.artistFilter.appendChild(option);
-});
+        this.artistFilter.innerHTML = '<option value="">All</option>';
+        artists.forEach(a => {
+            const option = document.createElement('option');
+            option.value = a;
+            option.textContent = a;
+            this.artistFilter.appendChild(option);
+        });
 
 
 
