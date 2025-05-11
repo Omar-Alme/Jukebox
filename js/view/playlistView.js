@@ -2,6 +2,8 @@ export default class PlaylistView {
     constructor() {
         this.form = document.getElementById('createPlaylistForm');
         this.listContainer = document.getElementById('playlist-list');
+        this.genreFilter = document.getElementById('genreFilter');
+        this.sortSelect = document.getElementById('sortBy');
     }
 
     bindCreatePlaylist(callback) {
@@ -154,5 +156,17 @@ export default class PlaylistView {
 
     bindEditPlaylist(callback) {
         this.onEditPlaylist = callback;
+    }
+
+    bindFilterByGenre(callback) {
+        this.genreFilter.addEventListener('change', (e) => {
+            callback(e.target.value);
+        });
+    }
+
+    bindSortBy(callback) {
+        this.sortSelect.addEventListener('change', (e) => {
+            callback(e.target.value);
+        });
     }
 }
