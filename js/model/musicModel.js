@@ -46,4 +46,31 @@ export default class MusicModel {
 
         return true;
     }
+
+    async addSongToPlaylist(playlistId, song) {
+        // Fetch current playlist
+        const res = await fetch(`${DB_URL}/${playlistId}`, {
+            method: "GET",
+            headers: {
+                "x-apikey": API_KEY
+            }
+        });
+
+        const playlist = await res.json();
+        const updatedSongs = [...(playlist.songs || []), song];
+
+        // Send PATCH request to update songs
+        const patchRes = await fetch(`${DB_URL}/${playlistId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "x-apikey": API_KEY
+            },
+            body: JSON.stringify({
+                songs: updatedSongs
+            })
+        });
+
+        return await patchRes.json();
+    }
 }

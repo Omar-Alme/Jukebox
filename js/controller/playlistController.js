@@ -9,6 +9,7 @@ export default class PlaylistController {
         console.log("bindCreatePlaylist?", typeof this.view.bindCreatePlaylist);
         this.view.bindCreatePlaylist(this.handleCreatePlaylist.bind(this));
         this.view.bindDeletePlaylist(this.handleDeletePlaylist.bind(this));
+        this.view.bindAddSong(this.handleAddSong.bind(this));
         this.loadPlaylists();
     }
 
@@ -23,6 +24,13 @@ export default class PlaylistController {
         await this.model.deletePlaylist(id);
         this.loadPlaylists();
     }
+
+    async handleAddSong(playlistId, songData) {
+        console.log("Adding song to playlist with id:", playlistId, "and data:", songData);
+        await this.model.addSongToPlaylist(playlistId, songData);
+        this.loadPlaylists();
+    }
+
 
     async loadPlaylists() {
         const playlists = await this.model.getPlaylists();
