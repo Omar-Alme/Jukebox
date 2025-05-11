@@ -25,33 +25,39 @@ export default class PlaylistView {
 
         playlists.forEach(p => {
             const div = document.createElement('div');
-            div.innerHTML = `<strong>${p.name}</strong> - ${p.genre} - ${p.artist}
-                    <button data-id="${p._id}" class="delete-btn">🗑️ Delete</button>
+            div.innerHTML = `<div class="playlist">
+                <strong>${p.name}</strong> - ${p.genre} - ${p.artist}
+                <button data-id="${p._id}" class="delete-btn">🗑️ Delete</button>
+                <button data-id="${p._id}" class="edit-btn">✏️ Edit</button>
 
-                    <div class="songs">
-                        <ul>
-                            ${(p.songs || []).map(song => `<li>${song.title} (${song.duration})</li>`).join('')}
-                        </ul>
+                <form data-id="${p._id}" class="edit-playlist-form" style="display: none; margin-top: 10px;">
+                    <input type="text" name="name" placeholder="New name" value="${p.name}" required />
+                    <input type="text" name="genre" placeholder="New genre" value="${p.genre}" required />
+                    <input type="text" name="artist" placeholder="New artist" value="${p.artist}" required />
+                    <button type="submit">Save</button>
+                </form>
 
-                        <form data-id="${p._id}" class="add-song-form">
-                            <input type="text" name="title" placeholder="Song title" required />
-                            <input type="text" name="duration" placeholder="Duration" required />
-                            <button type="submit">Add Song</button>
-                        </form>
-                        </div>
-
-                        <ul>
-                            ${(p.songs && p.songs.length > 0)
-                                ? p.songs.map((song, index) => `
+                <div class="songs">
+                    <h3>Songs</h3>
+                    <ul>
+                        ${(p.songs && p.songs.length > 0)
+                            ? p.songs.map((song, index) => `
                                 <li>
                                     ${song.title} (${song.duration})
                                     <button class="delete-song-btn" data-playlist-id="${p._id}" data-song-index="${index}">🗑️</button>
                                 </li>
-                                `).join('')
-                                : '<li>No songs yet.</li>'
-                            }
-                        </ul>
-                    </div>
+                            `).join('')
+                            : '<li>No songs yet.</li>'
+                        }
+                    </ul>
+
+                    <form data-id="${p._id}" class="add-song-form">
+                        <input type="text" name="title" placeholder="Song title" required />
+                        <input type="text" name="duration" placeholder="Duration" required />
+                        <button type="submit">Add Song</button>
+                    </form>
+                </div>
+            </div>
 `;
             this.listContainer.appendChild(div);
         });
@@ -88,6 +94,33 @@ export default class PlaylistView {
                 this.onDeleteSong(playlistId, parseInt(songIndex));
             });
         });
+
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            const id = button.getAttribute('data-id');
+            button.addEventListener('click', () => {
+                const form = document.querySelector(`form.edit-playlist-form[data-id="${id}"]`);
+                form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+
+        document.querySelectorAll('.edit-playlist-form').forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const id = form.getAttribute('data-id');
+                const name = form.name.value.trim();
+                const genre = form.genre.value.trim();
+                const artist = form.artist.value.trim();
+
+                if (name && genre && artist) {
+                    this.onEditPlaylist(id, {
+                        name,
+                        genre,
+                        artist
+                    });
+                }
+            });
+        });
+
     }
 
     bindDeletePlaylist(callback) {
@@ -99,5 +132,9 @@ export default class PlaylistView {
 
     bindDeleteSong(callback) {
         this.onDeleteSong = callback;
+    }
+
+    bindEditPlaylist(callback) {
+        this.onEditPlaylist = callback;
     }
 }

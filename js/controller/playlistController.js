@@ -11,6 +11,8 @@ export default class PlaylistController {
         this.view.bindDeletePlaylist(this.handleDeletePlaylist.bind(this));
         this.view.bindAddSong(this.handleAddSong.bind(this));
         this.view.bindDeleteSong(this.handleDeleteSong.bind(this));
+        this.view.bindEditPlaylist(this.handleEditPlaylist.bind(this));
+
         this.loadPlaylists();
     }
 
@@ -19,6 +21,13 @@ export default class PlaylistController {
         await this.model.createPlaylist(data);
         this.loadPlaylists();
     }
+
+    async handleEditPlaylist(id, updatedData) {
+        console.log("Editing playlist with id:", id, "and data:", updatedData);
+        await this.model.updatePlaylist(id, updatedData);
+        this.loadPlaylists();
+    }
+
 
     async handleDeletePlaylist(id) {
         console.log("Deleting playlist with id:", id);
