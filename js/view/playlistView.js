@@ -45,6 +45,8 @@ export default class PlaylistView {
                             ? p.songs.map((song, index) => `
                                 <li>
                                     ${song.title} - <em>${song.artist}</em> (${song.duration})
+                                    ${song.spotifyUrl ? `<a href="${song.spotifyUrl}" target="_blank" title="Listen on Spotify">🎧</a>` : ''}
+
                                     <button class="delete-song-btn" data-playlist-id="${p._id}" data-song-index="${index}">🗑️</button>
                                 </li>
                             `).join('')
@@ -56,6 +58,7 @@ export default class PlaylistView {
                         <input type="text" name="title" placeholder="Song title" required />
                         <input type="text" name="artist" placeholder="Artist" required />
                         <input type="text" name="duration" placeholder="Duration" required />
+                        <input type="url" name="spotifyUrl" placeholder="Spotify URL" />
                         <button type="submit">Add Song</button>
                     </form>
                 </div>
@@ -100,12 +103,14 @@ export default class PlaylistView {
                 const title = form.title.value.trim();
                 const artist = form.artist.value.trim();
                 const duration = form.duration.value.trim();
+                const spotifyUrl = form.spotifyUrl.value.trim();
 
                 if (title && artist && duration) {
                     this.onAddSong(id, {
                         title,
                         artist,
-                        duration
+                        duration,
+                        spotifyUrl
                     });
                     form.reset();
                 }
