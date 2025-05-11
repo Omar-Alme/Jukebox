@@ -3,6 +3,7 @@ export default class PlaylistView {
         this.form = document.getElementById('createPlaylistForm');
         this.listContainer = document.getElementById('playlist-list');
         this.genreFilter = document.getElementById('genreFilter');
+        this.artistFilter = document.getElementById('artistFilter');
         this.sortSelect = document.getElementById('sortBy');
     }
 
@@ -74,6 +75,17 @@ export default class PlaylistView {
             option.textContent = g;
             this.genreFilter.appendChild(option);
         });
+
+        // Populate artist filter
+        const artists = [...new Set(playlists.map(p => p.artist))];
+this.artistFilter.innerHTML = '<option value="">All</option>';
+artists.forEach(a => {
+  const option = document.createElement('option');
+  option.value = a;
+  option.textContent = a;
+  this.artistFilter.appendChild(option);
+});
+
 
 
         document.querySelectorAll('.delete-btn').forEach(button => {
@@ -163,4 +175,11 @@ export default class PlaylistView {
             callback(e.target.value);
         });
     }
+
+    bindFilterByArtist(callback) {
+        this.artistFilter.addEventListener('change', (e) => {
+            callback(e.target.value);
+        });
+    }
+
 }

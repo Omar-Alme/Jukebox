@@ -3,6 +3,7 @@ export default class PlaylistController {
         this.model = model;
         this.view = view;
         this.currentGenreFilter = "";
+        this.currentArtistFilter = '';
         this.currentSort = "name";
     }
 
@@ -17,6 +18,7 @@ export default class PlaylistController {
 
         this.view.bindFilterByGenre(this.handleFilterByGenre.bind(this));
         this.view.bindSortBy(this.handleSortBy.bind(this));
+        this.view.bindFilterByArtist(this.handleFilterByArtist.bind(this));
 
         this.loadPlaylists();
     }
@@ -62,19 +64,26 @@ export default class PlaylistController {
         this.loadPlaylists();
     }
 
+    handleFilterByArtist(artist) {
+        this.currentArtistFilter = artist;
+        this.loadPlaylists();
+    }
+
+
 
     async loadPlaylists() {
-        const playlists = await this.model.getPlaylists();
-        console.log("Playlists fetched:", playlists);
+        let playlists = await this.model.getPlaylists();
+        console.log("Playlists loaded:", playlists);
 
         if (this.currentGenreFilter) {
             playlists = playlists.filter(p => p.genre === this.currentGenreFilter);
         }
 
-        playlists.sort((a, b) => {
-            return a[this.currentSort].localeCompare(b[this.currentSort]);
-        });
-        
+        if (this.currentArtistFilter) {
+            playlists = playlists.filter(p => p.artist === this.currentArtistFilter);
+        }
+
+
         this.view.renderPlaylists(playlists);
     }
 }
