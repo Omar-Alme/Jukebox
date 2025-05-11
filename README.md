@@ -53,15 +53,5 @@ live-server
 ```
 
 ---
-
-## Brannch Strategy
-| Branch       | Purpose                                           |
-|-------------|------------------------------------------------|
-| **main**   | Final version of the app                        |
-| **development**    | Integration for merged features      |
-| **features/...** | one feature at a time    |
-
-
----
 ## Developed By
 - [Omar Alme](https://github.com/omar-alme)
