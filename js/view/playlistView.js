@@ -12,12 +12,10 @@ export default class PlaylistView {
             e.preventDefault();
             const name = document.getElementById('playlist-name').value;
             const genre = document.getElementById('playlist-genre').value;
-            const artist = document.getElementById('playlist-artist').value;
 
             callback({
                 name,
                 genre,
-                artist
             });
             this.form.reset();
         });
@@ -30,14 +28,13 @@ export default class PlaylistView {
             const div = document.createElement('div');
             div.innerHTML = `
             <div class="playlist">
-                <strong>${p.name}</strong> - ${p.genre} - ${p.artist}
+                <strong>${p.name}</strong> - ${p.genre}
                 <button data-id="${p._id}" class="delete-btn">🗑️ Delete</button>
                 <button data-id="${p._id}" class="edit-btn">✏️ Edit</button>
 
                 <form data-id="${p._id}" class="edit-playlist-form" style="display: none; margin-top: 10px;">
                     <input type="text" name="name" placeholder="New name" value="${p.name}" required />
                     <input type="text" name="genre" placeholder="New genre" value="${p.genre}" required />
-                    <input type="text" name="artist" placeholder="New artist" value="${p.artist}" required />
                     <button type="submit">Save</button>
                 </form>
 
@@ -47,7 +44,7 @@ export default class PlaylistView {
                         ${(p.songs && p.songs.length > 0)
                             ? p.songs.map((song, index) => `
                                 <li>
-                                    ${song.title} (${song.duration})
+                                    ${song.title} - <em>${song.artist}</em> (${song.duration})
                                     <button class="delete-song-btn" data-playlist-id="${p._id}" data-song-index="${index}">🗑️</button>
                                 </li>
                             `).join('')
@@ -57,6 +54,7 @@ export default class PlaylistView {
 
                     <form data-id="${p._id}" class="add-song-form">
                         <input type="text" name="title" placeholder="Song title" required />
+                        <input type="text" name="artist" placeholder="Artist" required />
                         <input type="text" name="duration" placeholder="Duration" required />
                         <button type="submit">Add Song</button>
                     </form>
@@ -100,11 +98,13 @@ export default class PlaylistView {
                 e.preventDefault();
                 const id = form.getAttribute('data-id');
                 const title = form.title.value.trim();
+                const artist = form.artist.value.trim();
                 const duration = form.duration.value.trim();
 
-                if (title && duration) {
+                if (title && artist && duration) {
                     this.onAddSong(id, {
                         title,
+                        artist,
                         duration
                     });
                     form.reset();

@@ -75,6 +75,12 @@ section#playlist-controls label {
     color: #111;
 }
 
+.playlist em {
+    font-style: italic;
+    color: #555;
+}
+
+
 .playlist ul {
     margin: 0.5rem 0;
     padding-left: 1.5rem;
