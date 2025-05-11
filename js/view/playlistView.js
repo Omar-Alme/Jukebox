@@ -28,23 +28,6 @@ export default class PlaylistView {
         playlists.forEach(p => {
             const div = document.createElement('div');
             div.innerHTML = `
-            <section id="playlist-controls">
-                <label>
-                    Filter by genre:
-                    <select id="genreFilter">
-                    <option value="">All</option>
-                    </select>
-                </label>
-
-                <label>
-                    Sort by:
-                    <select id="sortBy">
-                    <option value="name">Name</option>
-                    <option value="artist">Artist</option>
-                    </select>
-                </label>
-            </section>
-
             <div class="playlist">
                 <strong>${p.name}</strong> - ${p.genre} - ${p.artist}
                 <button data-id="${p._id}" class="delete-btn">🗑️ Delete</button>
@@ -81,6 +64,17 @@ export default class PlaylistView {
 `;
             this.listContainer.appendChild(div);
         });
+
+        // Populate genre filter
+        const genres = [...new Set(playlists.map(p => p.genre))];
+        this.genreFilter.innerHTML = '<option value="">All</option>';
+        genres.forEach(g => {
+            const option = document.createElement('option');
+            option.value = g;
+            option.textContent = g;
+            this.genreFilter.appendChild(option);
+        });
+
 
         document.querySelectorAll('.delete-btn').forEach(button => {
             button.addEventListener('click', () => {
