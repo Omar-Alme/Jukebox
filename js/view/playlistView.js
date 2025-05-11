@@ -54,7 +54,10 @@ export default class PlaylistView {
                         }
                     </ul>
 
-                    <form data-id="${p._id}" class="add-song-form">
+                      <button class="toggle-add-song-btn" data-id="${p._id}">➕ Add Song</button>
+
+
+                    <form data-id="${p._id}" class="add-song-form" style="display: none; margin-top: 10px;">
                         <input type="text" name="title" placeholder="Song title" required />
                         <input type="text" name="artist" placeholder="Artist" required />
                         <input type="text" name="duration" placeholder="Duration" required />
@@ -116,6 +119,15 @@ export default class PlaylistView {
                 }
             });
         });
+
+        document.querySelectorAll('.toggle-add-song-btn').forEach(button => {
+            const id = button.getAttribute('data-id');
+            button.addEventListener('click', () => {
+                const form = document.querySelector(`form.add-song-form[data-id="${id}"]`);
+                form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+
 
         document.querySelectorAll('.delete-song-btn').forEach(button => {
             const playlistId = button.getAttribute('data-playlist-id');
