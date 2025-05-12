@@ -3,7 +3,8 @@ export default class PlaylistView {
         this.form = document.getElementById('createPlaylistForm');
         this.listContainer = document.getElementById('playlist-list');
         this.genreFilter = document.getElementById('genreFilter');
-        this.sortSelect = document.getElementById('sortBy');
+        this.resetGenreBtn = document.getElementById('reset-genre-filter-btn');
+
     }
 
     bindCreatePlaylist(callback) {
@@ -38,7 +39,6 @@ export default class PlaylistView {
             this.listContainer.appendChild(div);
         });
 
-        // Delete buttons
         document.querySelectorAll('.delete-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const id = button.getAttribute('data-id');
@@ -48,7 +48,7 @@ export default class PlaylistView {
 
         // Populate genre filter
         const genres = [...new Set(playlists.map(p => p.genre))];
-        this.genreFilter.innerHTML = '<option value="">All</option>';
+        this.genreFilter.innerHTML = '<option value="">Pick a genre</option>';
         genres.forEach(g => {
             const option = document.createElement('option');
             option.value = g;
@@ -71,9 +71,11 @@ export default class PlaylistView {
         });
     }
 
-    // bindSortBy(callback) {
-    //     this.sortSelect.addEventListener('change', (e) => {
-    //         callback(e.target.value);
-    //     });
-    // }
+    bindResetGenreFilter(callback) {
+        this.resetGenreBtn.addEventListener('click', () => {
+            this.genreFilter.value = ""; 
+            callback("");
+        });
+    }
+
 }

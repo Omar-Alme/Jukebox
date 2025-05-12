@@ -28,6 +28,7 @@ export default class PlaylistDetailController {
         const updated = await this.model.getPlaylistById(this.playlistId);
 
         this.fullSongList = updated.songs;
+        this.playlist.songs = updated.songs;
         this.view.renderSongs(this.fullSongList);
     }
 
@@ -37,6 +38,7 @@ export default class PlaylistDetailController {
         const updated = await this.model.getPlaylistById(this.playlistId);
 
         this.fullSongList = updated.songs;
+        this.playlist.songs = updated.songs;
         this.view.renderSongs(this.fullSongList);
     }
 
@@ -45,7 +47,7 @@ export default class PlaylistDetailController {
             ? this.fullSongList.filter(song => song.artist === artist)
             : this.fullSongList;
             
-        this.view.renderSongs(this.playlist.songs, artist);
+        this.view.renderSongs(filtered, artist);
     }
 
 }

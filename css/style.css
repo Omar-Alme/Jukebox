@@ -123,7 +123,7 @@ form input {
     margin-top: 1rem;
 }
 
-/* Artist Reset Filter */
+/* Artist and Genre Reset Filter */
 #reset-artist-filter-btn {
     margin-left: 1rem;
     padding: 0.3rem 0.8rem;
@@ -137,6 +137,21 @@ form input {
 #reset-artist-filter-btn:hover {
     background-color: #b2bec3;
 }
+
+#reset-genre-filter-btn {
+    margin-left: 1rem;
+    padding: 0.3rem 0.8rem;
+    background-color: #dcdde1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#reset-genre-filter-btn:hover {
+    background-color: #b2bec3;
+}
+
 
 
 /* Spotify link */
