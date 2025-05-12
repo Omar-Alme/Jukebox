@@ -12,6 +12,16 @@ export default class MusicModel {
         return await res.json();
     }
 
+    async getPlaylistById(id) {
+        const res = await fetch(`${DB_URL}/${id}`, {
+            headers: {
+                'x-apikey': API_KEY
+            }
+        });
+        return await res.json();
+    }
+
+
     async createPlaylist(data) {
         const res = await fetch(DB_URL, {
             method: 'POST',

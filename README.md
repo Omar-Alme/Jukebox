@@ -44,6 +44,22 @@ All playlist data is stored in [restdb.io](https://restdb.io/), a NoSQL cloud da
 
 ## 🧪 Project Setup
 
+Create RESTDB.io account: [restdb.io](https://restdb.io/)
+
+Add API key to `js/model/musicModel.js`
+
+```js
+const API_KEY = 'YOUR_API_KEY';
+```
+
+ADD DB URL to `js/model/musicModel.js`, Make sure it is a Web Page API Keys (CORS) from settings in restdb.io.
+
+```js
+const DB_URL = 'YOUR_DB_URL';
+```
+
+ps
+
 Clone the repo and open with Live Server:
 
 ```bash

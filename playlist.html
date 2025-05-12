@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Playlist Details</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <h1>🎶 Playlist Details</h1>
+
+    <div id="playlist-details">
+        <h2 id="playlist-name"></h2>
+        <p id="playlist-genre"></p>
+    </div>
+
+    <div id="song-section">
+         <label>
+            Filter songs by artist:
+            <select id="artistFilter">
+                <option value="">All</option>
+            </select>
+        </label>
+        
+        <h3>Songs</h3>
+        <ul id="song-list"></ul>
+
+       
+
+
+        <h4>
+            <button id="toggle-add-form-btn">Add Song +</button>
+        </h4>
+
+        <form id="add-song-form" style="display: none;">
+            <input type="text" name="title" placeholder="Song title" required />
+            <input type="text" name="artist" placeholder="Artist" required />
+            <input type="text" name="duration" placeholder="Duration" required />
+            <input type="url" name="spotifyUrl" placeholder="Spotify URL (optional)" />
+            <button type="submit">Add Song</button>
+        </form>
+
+    </div>
+
+    <br />
+    <a href="index.html"><button>⬅️ Back to Playlists</button></a>
+
+    <script type="module" src="js/playlistDetail.js"></script>
+</body>
+
+</html>

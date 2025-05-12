@@ -3,7 +3,6 @@ export default class PlaylistView {
         this.form = document.getElementById('createPlaylistForm');
         this.listContainer = document.getElementById('playlist-list');
         this.genreFilter = document.getElementById('genreFilter');
-        this.artistFilter = document.getElementById('artistFilter');
         this.sortSelect = document.getElementById('sortBy');
     }
 
@@ -28,15 +27,23 @@ export default class PlaylistView {
             const div = document.createElement('div');
             div.innerHTML = `
             <div class="playlist">
-                <strong>${p.name}</strong>
-                <p style="margin: 0.3rem 0 0.5rem;">Genre: <em>${p.genre}</em></p>
-                <a href="playlist.html?id=${p._id}">
+            <strong>${p.name}</strong>
+            <p style="margin: 0.3rem 0 0.5rem;">Genre: <em>${p.genre}</em></p>
+            <a href="playlist.html?id=${p._id}">
                 <button class="view-btn">👁️ View</button>
-                </a>
+            </a>
+            <button class="delete-btn" data-id="${p._id}">🗑️ Delete</button>
             </div>
-`;
-
+        `;
             this.listContainer.appendChild(div);
+        });
+
+        // Delete buttons
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+                this.onDelete(id);
+            });
         });
 
         // Populate genre filter
@@ -48,102 +55,10 @@ export default class PlaylistView {
             option.textContent = g;
             this.genreFilter.appendChild(option);
         });
-
-        // Populate artist filter
-        const artists = [...new Set(playlists.map(p => p.artist))];
-        this.artistFilter.innerHTML = '<option value="">All</option>';
-        artists.forEach(a => {
-            const option = document.createElement('option');
-            option.value = a;
-            option.textContent = a;
-            this.artistFilter.appendChild(option);
-        });
-
-
-
-        document.querySelectorAll('.delete-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const id = button.getAttribute('data-id');
-                this.onDelete(id);
-            });
-        });
-
-        document.querySelectorAll('.add-song-form').forEach(form => {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const id = form.getAttribute('data-id');
-                const title = form.title.value.trim();
-                const artist = form.artist.value.trim();
-                const duration = form.duration.value.trim();
-                const spotifyUrl = form.spotifyUrl.value.trim();
-
-                if (title && artist && duration) {
-                    this.onAddSong(id, {
-                        title,
-                        artist,
-                        duration,
-                        spotifyUrl
-                    });
-                    form.reset();
-                }
-            });
-        });
-
-        document.querySelectorAll('.toggle-add-song-btn').forEach(button => {
-            const id = button.getAttribute('data-id');
-            button.addEventListener('click', () => {
-                const form = document.querySelector(`form.add-song-form[data-id="${id}"]`);
-                form.style.display = form.style.display === 'none' ? 'block' : 'none';
-            });
-        });
-
-
-        document.querySelectorAll('.delete-song-btn').forEach(button => {
-            const playlistId = button.getAttribute('data-playlist-id');
-            const songIndex = button.getAttribute('data-song-index');
-
-            button.addEventListener('click', () => {
-                this.onDeleteSong(playlistId, parseInt(songIndex));
-            });
-        });
-
-        document.querySelectorAll('.edit-btn').forEach(button => {
-            const id = button.getAttribute('data-id');
-            button.addEventListener('click', () => {
-                const form = document.querySelector(`form.edit-playlist-form[data-id="${id}"]`);
-                form.style.display = form.style.display === 'none' ? 'block' : 'none';
-            });
-        });
-
-        document.querySelectorAll('.edit-playlist-form').forEach(form => {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const id = form.getAttribute('data-id');
-                const name = form.name.value.trim();
-                const genre = form.genre.value.trim();
-                const artist = form.artist.value.trim();
-
-                if (name && genre && artist) {
-                    this.onEditPlaylist(id, {
-                        name,
-                        genre,
-                        artist
-                    });
-                }
-            });
-        });
-
     }
 
     bindDeletePlaylist(callback) {
         this.onDelete = callback;
-    }
-    bindAddSong(callback) {
-        this.onAddSong = callback;
-    }
-
-    bindDeleteSong(callback) {
-        this.onDeleteSong = callback;
     }
 
     bindEditPlaylist(callback) {
@@ -156,16 +71,9 @@ export default class PlaylistView {
         });
     }
 
-    bindSortBy(callback) {
-        this.sortSelect.addEventListener('change', (e) => {
-            callback(e.target.value);
-        });
-    }
-
-    bindFilterByArtist(callback) {
-        this.artistFilter.addEventListener('change', (e) => {
-            callback(e.target.value);
-        });
-    }
-
+    // bindSortBy(callback) {
+    //     this.sortSelect.addEventListener('change', (e) => {
+    //         callback(e.target.value);
+    //     });
+    // }
 }
