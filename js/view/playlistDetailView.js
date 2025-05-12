@@ -5,7 +5,7 @@ export default class PlaylistDetailView {
         this.songList = document.getElementById('song-list');
         this.form = document.getElementById('add-song-form');
         this.artistFilter = document.getElementById('artistFilter');
-
+        this.resetFilterBtn = document.getElementById('reset-artist-filter-btn');
     }
 
     renderPlaylist(playlist) {
@@ -13,7 +13,7 @@ export default class PlaylistDetailView {
         this.genreEl.textContent = `Genre: ${playlist.genre}`;
     }
 
-  renderSongs(songs, filterArtist = '') {
+    renderSongs(songs, filterArtist = '') {
         this.songList.innerHTML = '';
 
         if (!songs || songs.length === 0) {
@@ -50,7 +50,7 @@ export default class PlaylistDetailView {
         });
 
         const artists = [...new Set(songs.map(song => song.artist))];
-        this.artistFilter.innerHTML = '<option value="">All</option>';
+        this.artistFilter.innerHTML = '<option value="">Pick an artist</option>';
         artists.forEach(artist => {
             const option = document.createElement('option');
             option.value = artist;
@@ -93,5 +93,13 @@ export default class PlaylistDetailView {
             callback(e.target.value);
         });
     }
+
+    bindResetArtistFilter(callback) {
+        this.resetFilterBtn.addEventListener('click', () => {
+            this.artistFilter.value = "";
+            callback("");
+        });
+    }
+
 
 }
