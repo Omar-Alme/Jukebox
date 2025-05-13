@@ -4,7 +4,7 @@ export default class PlaylistView {
         this.listContainer = document.getElementById('playlist-list');
         this.genreFilter = document.getElementById('genreFilter');
         this.resetGenreBtn = document.getElementById('reset-genre-filter-btn');
-
+        
     }
 
     bindCreatePlaylist(callback) {
@@ -28,6 +28,7 @@ export default class PlaylistView {
             const div = document.createElement('div');
             div.innerHTML = `
             <div class="playlist">
+            <img class="playlist-image" src="../assets/playlist.jpeg" alt="${p.name}" class="playlist-image">
             <strong>${p.name}</strong>
             <p style="margin: 0.3rem 0 0.5rem;">Genre: <em>${p.genre}</em></p>
             <a href="playlist.html?id=${p._id}">

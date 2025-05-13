@@ -170,6 +170,12 @@ a[title="Listen on Spotify"] {
     background-color: #019875;
 }
 
+.playlist-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
 
 /* Animations */
 @keyframes fadeIn {
